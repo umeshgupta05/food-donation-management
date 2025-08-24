@@ -1,0 +1,143 @@
+{% extends 'base.html' %} {% block content %}
+<div class="row justify-content-center align-items-center">
+  <div class="col-lg-8 text-center">
+    <div class="mb-4">
+      <i class="bi bi-gift text-primary" style="font-size: 4rem"></i>
+    </div>
+    <h1 class="display-4 fw-bold mb-3 text-success">
+      Food Donation Management System
+    </h1>
+    <p class="lead text-secondary mb-4">
+      Bridging the gap between surplus and need.<br />
+      <span class="text-primary"
+        >Connect donors and receivers to reduce food waste and help those in
+        need.</span
+      >
+    </p>
+    <div class="d-flex justify-content-center gap-3 mb-5">
+      <a href="/accounts/register/donor/" class="btn btn-lg btn-success shadow">
+        <i class="bi bi-person-plus"></i> Register as Donor
+      </a>
+      <a
+        href="/accounts/register/receiver/"
+        class="btn btn-lg btn-info text-white shadow"
+      >
+        <i class="bi bi-building"></i> Register as Receiver
+      </a>
+      <a href="/accounts/login/" class="btn btn-lg btn-outline-dark shadow">
+        <i class="bi bi-box-arrow-in-right"></i> Login
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-5">
+  <div class="col-md-4 mb-4">
+    <div class="card h-100 shadow-sm border-0 rounded-3">
+      <div class="card-body text-center">
+        <div class="mb-3">
+          <i class="bi bi-heart-fill text-danger" style="font-size: 2.5rem"></i>
+        </div>
+        <h4>Make a Difference</h4>
+        <p class="text-muted">
+          Your surplus food can save lives. Connect with organizations in need
+          and reduce waste.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 mb-4">
+    <div class="card h-100 shadow-sm border-0 rounded-3">
+      <div class="card-body text-center">
+        <div class="mb-3">
+          <i
+            class="bi bi-geo-alt-fill text-primary"
+            style="font-size: 2.5rem"
+          ></i>
+        </div>
+        <h4>Local Connections</h4>
+        <p class="text-muted">
+          Find donation opportunities near you. Our platform makes local giving
+          simple and efficient.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 mb-4">
+    <div class="card h-100 shadow-sm border-0 rounded-3">
+      <div class="card-body text-center">
+        <div class="mb-3">
+          <i
+            class="bi bi-shield-check text-success"
+            style="font-size: 2.5rem"
+          ></i>
+        </div>
+        <h4>Safe & Secure</h4>
+        <p class="text-muted">
+          NGOs are verified by admins. Track donations from posting through
+          completion.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-12">
+    <div class="card bg-light border-0 shadow-sm p-4 rounded-3">
+      <h3 class="text-success mb-4 text-center">How It Works</h3>
+      <div class="row">
+        <div class="col-md-3 text-center mb-3">
+          <div
+            class="bg-white rounded-circle shadow-sm p-3 d-inline-flex align-items-center justify-content-center mb-2"
+            style="width: 80px; height: 80px"
+          >
+            <i
+              class="bi bi-person-plus-fill text-primary"
+              style="font-size: 2rem"
+            ></i>
+          </div>
+          <h5>1. Register</h5>
+          <p class="small text-muted">Sign up as a donor or receiver</p>
+        </div>
+        <div class="col-md-3 text-center mb-3">
+          <div
+            class="bg-white rounded-circle shadow-sm p-3 d-inline-flex align-items-center justify-content-center mb-2"
+            style="width: 80px; height: 80px"
+          >
+            <i class="bi bi-gift-fill text-success" style="font-size: 2rem"></i>
+          </div>
+          <h5>2. Post or Browse</h5>
+          <p class="small text-muted">Share food details or find donations</p>
+        </div>
+        <div class="col-md-3 text-center mb-3">
+          <div
+            class="bg-white rounded-circle shadow-sm p-3 d-inline-flex align-items-center justify-content-center mb-2"
+            style="width: 80px; height: 80px"
+          >
+            <i
+              class="bi bi-hand-thumbs-up-fill text-info"
+              style="font-size: 2rem"
+            ></i>
+          </div>
+          <h5>3. Connect</h5>
+          <p class="small text-muted">Claim donations and coordinate pickup</p>
+        </div>
+        <div class="col-md-3 text-center mb-3">
+          <div
+            class="bg-white rounded-circle shadow-sm p-3 d-inline-flex align-items-center justify-content-center mb-2"
+            style="width: 80px; height: 80px"
+          >
+            <i
+              class="bi bi-check-circle-fill text-danger"
+              style="font-size: 2rem"
+            ></i>
+          </div>
+          <h5>4. Complete</h5>
+          <p class="small text-muted">Mark donation as completed</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,107 @@
+/* Custom CSS styles for Food Donation Management System */
+
+:root {
+  --primary-green: #28a745;
+  --secondary-blue: #17a2b8;
+}
+
+/* Enhance buttons with subtle hover effects */
+.btn {
+  transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(40, 167, 69, 0.2);
+}
+
+.btn-primary:hover,
+.btn-info:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(23, 162, 184, 0.2);
+}
+
+/* Card hover effects */
+.card {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom navbar styling */
+.navbar-brand i {
+  font-size: 1.5rem;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+/* Form styling */
+.form-control:focus {
+  border-color: var(--primary-green);
+  box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.25);
+}
+
+/* Footer styling */
+.footer {
+  background-color: #343a40;
+  color: #fff;
+}
+
+/* Dashboard statistics */
+.stat-card {
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Donation cards */
+.donation-card {
+  border-left: 4px solid var(--primary-green);
+}
+
+.donation-card.claimed {
+  border-left: 4px solid var(--secondary-blue);
+}
+
+/* Status badges */
+.status-badge {
+  border-radius: 50rem;
+  padding: 0.35em 0.65em;
+  font-size: 0.75em;
+}
+
+/* Animation for alerts */
+.alert {
+  animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .display-4 {
+    font-size: 2.5rem;
+  }
+
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+}

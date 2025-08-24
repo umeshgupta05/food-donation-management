@@ -1,0 +1,19 @@
+{% extends 'base.html' %} {% block content %}
+<h2>Available Donations</h2>
+<ul>
+  {% for donation in donations %}
+  <li>
+    <strong>{{ donation.food_type|title }}</strong> - {{ donation.description}}<br />
+    Quantity: {{ donation.quantity }}<br />
+    Location: {{ donation.pickup_location }}<br />
+    Expiry: {{ donation.expiry_time }}<br />
+    <form method="post" action="/donations/claim/{{ donation.id }}/">
+      {% csrf_token %}
+      <button type="submit">Claim</button>
+    </form>
+  </li>
+  {% empty %}
+  <li>No donations available.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

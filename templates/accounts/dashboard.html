@@ -1,0 +1,296 @@
+{% extends 'base.html' %} {% block content %}
+<div class="row">
+  <div class="col-lg-4 mb-4">
+    <div class="card shadow-sm border-0 rounded-3 h-100">
+      <div class="card-body text-center">
+        <div class="mb-4">
+          {% if user.role == 'donor' %}
+          <div
+            class="avatar bg-success text-white mx-auto mb-3"
+            style="
+              width: 80px;
+              height: 80px;
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            "
+          >
+            <i class="bi bi-person-heart" style="font-size: 2rem"></i>
+          </div>
+          {% elif user.role == 'receiver' %}
+          <div
+            class="avatar bg-info text-white mx-auto mb-3"
+            style="
+              width: 80px;
+              height: 80px;
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            "
+          >
+            <i class="bi bi-building" style="font-size: 2rem"></i>
+          </div>
+          {% elif user.role == 'admin' %}
+          <div
+            class="avatar bg-dark text-white mx-auto mb-3"
+            style="
+              width: 80px;
+              height: 80px;
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            "
+          >
+            <i class="bi bi-shield" style="font-size: 2rem"></i>
+          </div>
+          {% endif %}
+          <h3 class="fw-bold">Welcome, {{ user.username }}!</h3>
+          <p class="text-muted">
+            <span
+              class="badge {% if user.role == 'donor' %}bg-success{% elif user.role == 'receiver' %}bg-info{% else %}bg-dark{% endif %}"
+            >
+              {{ user.role|title }}
+            </span>
+          </p>
+        </div>
+
+        <div class="d-grid gap-2">
+          {% if user.role == 'donor' %}
+          <a href="/donations/create/" class="btn btn-success">
+            <i class="bi bi-plus-circle me-2"></i>Post a Donation
+          </a>
+          <a href="/donations/history/" class="btn btn-outline-success">
+            <i class="bi bi-clock-history me-2"></i>View History
+          </a>
+          {% elif user.role == 'receiver' %}
+          <a href="/donations/available/" class="btn btn-info text-white">
+            <i class="bi bi-search me-2"></i>Browse Donations
+          </a>
+          <a href="/donations/history/" class="btn btn-outline-info">
+            <i class="bi bi-clock-history me-2"></i>View Claims
+          </a>
+          {% elif user.role == 'admin' %}
+          <a href="/admin/" class="btn btn-dark">
+            <i class="bi bi-gear me-2"></i>Admin Panel
+          </a>
+          <a href="/reports/" class="btn btn-outline-dark">
+            <i class="bi bi-graph-up me-2"></i>View Reports
+          </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-8">
+    <div class="card shadow-sm border-0 rounded-3">
+      <div class="card-header bg-light">
+        <h4 class="mb-0">
+          {% if user.role == 'donor' %}
+          <i class="bi bi-activity me-2 text-success"></i>Donation Activity 
+          {% elif user.role == 'receiver' %}
+          <i class="bi bi-activity me-2 text-info"></i>Claim Activity 
+          {% elif user.role == 'admin' %} <i class="bi bi-activity me-2"></i>
+          System Activity {% endif %}
+        </h4>
+      </div>
+      <div class="card-body">
+        {% if user.role == 'donor' %}
+        <div class="row text-center mb-4">
+          <div class="col-md-4">
+            <div class="p-3 border rounded bg-light">
+              <h1 class="text-success">{{ active_donations|default:"0" }}</h1>
+              <p class="text-muted mb-0">Active Donations</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="p-3 border rounded bg-light">
+              <h1 class="text-primary">{{ claimed_donations|default:"0" }}</h1>
+              <p class="text-muted mb-0">Claimed</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="p-3 border rounded bg-light">
+              <h1 class="text-dark">{{ completed_donations|default:"0" }}</h1>
+              <p class="text-muted mb-0">Completed</p>
+            </div>
+          </div>
+        </div>
+
+        <h5 class="mt-4">Recent Donations</h5>
+        {% if recent_donations %}
+          <div class="list-group">
+            {% for donation in recent_donations %}
+            <div class="list-group-item list-group-item-action">
+              <div class="d-flex w-100 justify-content-between">
+                <h6 class="mb-1">{{ donation.food_type|title }} - {{ donation.quantity }}</h6>
+                <small class="text-muted">{{ donation.created_at|date:"M d, Y" }}</small>
+              </div>
+              <p class="mb-1 small text-truncate">{{ donation.description }}</p>
+              <span class="badge 
+                {% if donation.status == 'available' %}bg-success
+                {% elif donation.status == 'claimed' %}bg-primary
+                {% else %}bg-dark{% endif %}">
+                {{ donation.status|title }}
+              </span>
+            </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="alert alert-light border" role="alert">
+            No recent donations.
+            <a href="/donations/create/" class="alert-link">Create one now!</a>
+          </div>
+        {% endif %}
+
+        {% elif user.role == 'receiver' %}
+        <div class="row text-center mb-4">
+          <div class="col-md-4">
+            <div class="p-3 border rounded bg-light">
+              <h1 class="text-info">{{ available_donations|default:"0" }}</h1>
+              <p class="text-muted mb-0">Available Donations</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="p-3 border rounded bg-light">
+              <h1 class="text-warning">{{ pending_claims|default:"0" }}</h1>
+              <p class="text-muted mb-0">Pending Claims</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="p-3 border rounded bg-light">
+              <h1 class="text-success">{{ completed_claims|default:"0" }}</h1>
+              <p class="text-muted mb-0">Completed</p>
+            </div>
+          </div>
+        </div>
+
+        <h5 class="mt-4">Recent Claims</h5>
+        {% if recent_claims %}
+          <div class="list-group">
+            {% for claim in recent_claims %}
+            <div class="list-group-item list-group-item-action">
+              <div class="d-flex w-100 justify-content-between">
+                <h6 class="mb-1">{{ claim.donation.food_type|title }} - {{ claim.donation.quantity }}</h6>
+                <small class="text-muted">{{ claim.claimed_at|date:"M d, Y" }}</small>
+              </div>
+              <p class="mb-1 small text-truncate">{{ claim.donation.description }}</p>
+              <span class="badge 
+                {% if claim.status == 'pending' %}bg-warning
+                {% elif claim.status == 'approved' %}bg-success
+                {% else %}bg-danger{% endif %}">
+                {{ claim.status|title }}
+              </span>
+            </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="alert alert-light border" role="alert">
+            No recent claims.
+            <a href="/donations/available/" class="alert-link">Browse available donations!</a>
+          </div>
+        {% endif %}
+
+        {% elif user.role == 'admin' %}
+        <div class="row text-center mb-4">
+          <div class="col-md-3">
+            <div class="p-3 border rounded bg-light">
+              <h1 class="text-primary">{{ total_users }}</h1>
+              <p class="text-muted mb-0">Users</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="p-3 border rounded bg-light">
+              <h1 class="text-warning">{{ pending_ngos }}</h1>
+              <p class="text-muted mb-0">Pending NGOs</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="p-3 border rounded bg-light">
+              <h1 class="text-success">{{ total_donations }}</h1>
+              <p class="text-muted mb-0">Donations</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="p-3 border rounded bg-light">
+              <h1 class="text-info">{{ total_claims }}</h1>
+              <p class="text-muted mb-0">Claims</p>
+            </div>
+          </div>
+        </div>
+
+        <h5 class="mt-4">Recent Activity</h5>
+        {% if pending_ngos > 0 %}
+        <div class="alert alert-warning border" role="alert">
+          <strong>{{ pending_ngos }} NGO{{ pending_ngos|pluralize }} pending verification!</strong>
+          <a href="/admin/accounts/receiverprofile/" class="alert-link">Review now</a>
+        </div>
+        {% endif %}
+        
+        <div class="row mt-3">
+          <div class="col-md-6">
+            <div class="card mb-4">
+              <div class="card-header bg-light">
+                <h6 class="mb-0">Recent Donations</h6>
+              </div>
+              <div class="card-body">
+                {% if recent_donations %}
+                  <div class="list-group list-group-flush">
+                    {% for donation in recent_donations %}
+                      <div class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                          <h6 class="mb-1">{{ donation.food_item }}</h6>
+                          <small class="text-muted">{{ donation.created_at|date:"M d, Y" }}</small>
+                        </div>
+                        <p class="mb-1">Quantity: {{ donation.quantity }} | By: {{ donation.donor.user.username }}</p>
+                        <small class="text-capitalize badge bg-{{ donation.status|yesno:"success,warning,danger" }}">{{ donation.status }}</small>
+                      </div>
+                    {% endfor %}
+                  </div>
+                {% else %}
+                  <p class="text-muted">No recent donations.</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="card mb-4">
+              <div class="card-header bg-light">
+                <h6 class="mb-0">Recent Claims</h6>
+              </div>
+              <div class="card-body">
+                {% if recent_claims %}
+                  <div class="list-group list-group-flush">
+                    {% for claim in recent_claims %}
+                      <div class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                          <h6 class="mb-1">{{ claim.donation.food_item }}</h6>
+                          <small class="text-muted">{{ claim.claimed_at|date:"M d, Y" }}</small>
+                        </div>
+                        <p class="mb-1">By: {{ claim.receiver.user.username }}</p>
+                        <small class="text-capitalize badge bg-{{ claim.status|yesno:"success,warning,danger" }}">{{ claim.status }}</small>
+                      </div>
+                    {% endfor %}
+                  </div>
+                {% else %}
+                  <p class="text-muted">No recent claims.</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="alert alert-light border mt-2" role="alert">
+          For more detailed management options, visit the admin panel.
+          <a href="/admin/" class="alert-link">Go to admin panel!</a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %} {% block content %}
+<h2>Your Claim History</h2>
+<ul>
+  {% for claim in claims %}
+  <li>
+    <strong>{{ claim.donation.food_type|title }}</strong> - {{claim.donation.description }}<br />
+    Quantity: {{ claim.donation.quantity }}<br />
+    Status: {{ claim.status|title }}<br />
+    Claimed At: {{ claim.claimed_at }}<br />
+  </li>
+  {% empty %}
+  <li>No claims made yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

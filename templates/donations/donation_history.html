@@ -1,0 +1,15 @@
+{% extends 'base.html' %} {% block content %}
+<h2>Your Donation History</h2>
+<ul>
+  {% for donation in donations %}
+  <li>
+    <strong>{{ donation.food_type|title }}</strong> - {{ donation.description}}<br />
+    Quantity: {{ donation.quantity }}<br />
+    Status: {{ donation.status|title }}<br />
+    Expiry: {{ donation.expiry_time }}<br />
+  </li>
+  {% empty %}
+  <li>No donations posted yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}
