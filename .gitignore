@@ -41,3 +41,6 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+
+# Static files collected
+staticfiles/
