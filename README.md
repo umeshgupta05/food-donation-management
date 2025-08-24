@@ -21,12 +21,14 @@ A Django-based web application for managing food donations between donors (event
 ## Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/yourusername/food-donation-management.git
 cd food-donation-management
 ```
 
 2. Create and activate a virtual environment:
+
 ```bash
 python -m venv venv
 # On Windows
@@ -36,21 +38,25 @@ source venv/bin/activate
 ```
 
 3. Install dependencies:
+
 ```bash
 pip install -r requirements.txt
 ```
 
 4. Run migrations:
+
 ```bash
 python manage.py migrate
 ```
 
 5. Create a superuser:
+
 ```bash
 python manage.py createsuperuser
 ```
 
 6. Run the development server:
+
 ```bash
 python manage.py runserver
 ```
